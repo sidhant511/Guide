@@ -87,15 +87,25 @@
 
 `vi cisco.sh`
 
-`#!/bin/bash `
+```bash
+#!/bin/bash
 
-`for url in $(cat cisco.txt);do`
-
-`host $url | grep "has address" | cut -d" " -f4`
-
-`done`
+for url in $(cat cisco.txt);do
+host $url | grep "has address" | cut -d" " -f4
+done
+```
 
 `for url in $(grep -o '[A-Za-z0-9_\.-]*\.*cisco.com' index.html | sort -u); do host $url|grep "has address"|cut -d" " -f4;done`
 
 ## Scenario 2
 * Ping sweep
+
+`nano ping-loop.sh`
+
+```bash
+#!/bin/bash
+
+for ip in $(seq 200 254); do
+  ping -c 1 192.168.31.$ip | grep "bytes from" | cut -d" " -f4 | cut -d ":" -f1 &
+done
+```
