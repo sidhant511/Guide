@@ -38,3 +38,44 @@ The more info we have, the more likely of success
 http://www.exploit-db.com/google-dorks/
 
 ## Active Info Gathering
+
+### DNS Enumeration
+
+* Discover nameservers for a domain
+
+`host -t ns magacorpone.com`
+
+* Discover mail servers for a domain
+
+`host -t mx megacorpone.com`
+
+* Find IP address for server
+
+`host www.megacorpone.com`
+
+### Forward DNS Lookup
+Determine IPs of hostnames
+* Common host names
+  * www, ftp, mail, owa, proxy,router, admin, www2, firewall, mx, pop3
+
+forward.sh
+```bash
+#!/bin/bash
+
+for name in $(cat list.txt); do
+  host $name.megacorpone.com | grep "has address" | cut -d" " -f1,4
+done
+```
+
+### Reverse DNS Lookup
+
+Try to get hostnames for list of IPs
+
+reverse.sh
+```bash
+#!/bin/bash
+
+for ip in $(seq 72 91); do
+  host 38.100.193.$ip | grep "megacorp" | cut -d" " -f1,5
+done
+```
