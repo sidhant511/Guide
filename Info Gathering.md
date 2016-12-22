@@ -295,3 +295,27 @@ s.close() # Close the socket
 ### SNMP Enumeration
 * based on UDP
   * susceptible to ICMP
+
+#### SNMP MiB
+* port 161
+
+
+`nmap -sU --open -p 161 $IP_RANGE --open`
+* -U scans UDP
+
+onesixtyone
+
+`onesixty one -c COMMUNITY_STRINGS.txt -i IPs.txt`
+
+#### SNMPWalk
+* need community string
+
+`snmpwalk -c public -v1 $IP`
+* too much info
+
+`snmpwalk -c public -v1 $IP 1.3.6.1.2.1.25.4.2.1.2`
+* searches for running programs (see community string specified)
+
+#### Other snmp tools
+* snmpenum
+* snmpcheck
